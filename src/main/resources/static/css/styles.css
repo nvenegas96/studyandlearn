@@ -10141,12 +10141,71 @@ header.masthead .masthead-heading {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-header.headerpostular {
+header.headercontactanos {
   padding-top: 28rem;
   padding-bottom: 12.5rem;
   text-align: center;
   color: #fff;
   background-image: url("../assets/img/contactanos.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+header.headerclases {
+  padding-top: 28rem;
+  padding-bottom: 12.5rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/clases.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.headerprofesionales {
+  padding-top: 32rem;
+  padding-bottom: 22.5rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/profesionales.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.headerreserva {
+  padding-top: 28rem;
+  padding-bottom: 12.5rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/reserva.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.headerpostular {
+  padding-top: 28rem;
+  padding-bottom: 12.5rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/postular.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.headerabout {
+  padding-top: 32rem;
+  padding-bottom: 12.5rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/about.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;

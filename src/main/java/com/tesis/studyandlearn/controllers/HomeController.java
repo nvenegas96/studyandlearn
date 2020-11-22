@@ -27,4 +27,38 @@ public class HomeController {
         return "contactanos";
     }
 
+    @GetMapping("/nosotros")
+    public String nosotros(){
+
+
+        return "nosotros";
+    }
+
+    @GetMapping("/clases")
+    public String clases(){
+
+
+        return "clases";
+    }
+
+    @GetMapping("/profesionales")
+    public String profesionales(){
+
+
+        return "profesionales";
+    }
+
+    @GetMapping("/reserva")
+    public String reserva(){
+
+
+        return "reserva";
+    }
+
+    @GetMapping("/postular")
+    public String postular(){
+
+
+        return "postular";
+    }
 }
