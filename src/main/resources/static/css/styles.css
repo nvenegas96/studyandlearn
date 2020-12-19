@@ -10142,8 +10142,8 @@ header.masthead .masthead-heading {
 }
 
 header.headercontactanos {
-  padding-top: 28rem;
-  padding-bottom: 12.5rem;
+  padding-top: 30rem;
+  padding-bottom: 10.5rem;
   text-align: center;
   color: #fff;
   background-image: url("../assets/img/contactanos.jpg");
@@ -10152,9 +10152,22 @@ header.headercontactanos {
   background-position: center center;
   background-size: cover;
 }
+
+header.headergestion {
+  padding-top: 34rem;
+  padding-bottom: 14.5rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/gestion.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
 header.headerclases {
-  padding-top: 28rem;
-  padding-bottom: 12.5rem;
+  padding-top: 32rem;
+  padding-bottom: 22.5rem;
   text-align: center;
   color: #fff;
   background-image: url("../assets/img/clases.jpg");
@@ -10177,8 +10190,8 @@ header.headerprofesionales {
 }
 
 header.headerreserva {
-  padding-top: 28rem;
-  padding-bottom: 12.5rem;
+  padding-top: 32rem;
+  padding-bottom: 22.5rem;
   text-align: center;
   color: #fff;
   background-image: url("../assets/img/reserva.jpg");
@@ -10189,8 +10202,8 @@ header.headerreserva {
 }
 
 header.headerpostular {
-  padding-top: 28rem;
-  padding-bottom: 12.5rem;
+  padding-top: 32rem;
+  padding-bottom: 22.5rem;
   text-align: center;
   color: #fff;
   background-image: url("../assets/img/postular.jpg");
@@ -10200,8 +10213,13 @@ header.headerpostular {
   background-size: cover;
 }
 
+.image-fondo {
+  background-image: url("../assets/img/adm.jpg");
+}
+
+
 header.headerabout {
-  padding-top: 32rem;
+  padding-top: 36rem;
   padding-bottom: 12.5rem;
   text-align: center;
   color: #fff;
@@ -10548,3 +10566,61 @@ section#contact form#contactForm :-ms-input-placeholder {
   font-size: 1.2rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+.contenedor-modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.contenedor-modal button {
+  position: relative;
+  top: 40%;
+}
+
+#form {
+  width: 250px;
+  margin: 0 auto;
+  height: 50px;
+}
+
+#form p {
+  text-align: center;
+}
+
+#form label {
+  font-size: 20px;
+}
+
+
+#searchTerm {
+  background-image: url("../assets/img/searchicon.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#datos {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#datos th, #datos td {
+  text-align: left;
+  padding: 12px;
+}
+
+#datos tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#datos tr.header, #datos tr:hover {
+  background-color: #f1f1f1;
+}
+

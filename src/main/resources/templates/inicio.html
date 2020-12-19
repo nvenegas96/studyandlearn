@@ -2,11 +2,58 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title th:text="${titulo}"></title>
 </head>
 <body>
 
-<p th:text="${titulo}"></p>
+<table class="table table-striped table-responsive-md">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Eliminar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="alumno: ${listaAlumno}">
+        <td th:text="${alumno.id_alumno}"></td>
+        <td th:text="${alumno.nombre}"></td>
+        <td><a th:href="@{/alumno/delete/{id}(id=${alumno.id_alumno})}"
+               class="btn btn-primary">eliminar</td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr th:each="coordinador: ${listaCoordinador}">
+        <td th:text="${coordinador.id_coordinador}"></td>
+        <td th:text="${coordinador.nombre}"></td>
+        <td><a th:href="@{/coordinador/delete/{id}(id=${coordinador.id_coordinador})}"
+               class="btn btn-primary">eliminar</td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr th:each="cursoARealizar: ${listaCursoARealizar}">
+        <td th:text="${cursoARealizar.id_clases}"></td>
+        <td th:text="${cursoARealizar.nombre}"></td>
+        <td><a th:href="@{/cursoARealizar/delete/{id}(id=${cursoARealizar.id_clases})}"
+               class="btn btn-primary">eliminar</td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr th:each="curso: ${listaCurso}">
+        <td th:text="${curso.id_curso}"></td>
+        <td th:text="${curso.nombre}"></td>
+        <td><a th:href="@{/curso/delete/{id}(id=${curso.id_curso})}"
+               class="btn btn-primary">eliminar</td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr th:each="docente: ${listaDocente}">
+        <td th:text="${docente.id_docente}"></td>
+        <td th:text="${docente.nombre}"></td>
+        <td><a th:href="@{/docente/delete/{id}(id=${docente.id_docente})}"
+               class="btn btn-primary">eliminar</td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

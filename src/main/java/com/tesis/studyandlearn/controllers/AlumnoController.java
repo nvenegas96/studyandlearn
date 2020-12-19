@@ -2,32 +2,24 @@ package com.tesis.studyandlearn.controllers;
 
 
 import com.tesis.studyandlearn.models.AlumnoEntity;
+import com.tesis.studyandlearn.services.AlumnoService;
+import com.tesis.studyandlearn.services.impl.AlumnoServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("")
 public class AlumnoController {
 
-    @RequestMapping("/perfil")
-    public String perfil(Model model){
-        AlumnoEntity alumno = new AlumnoEntity();
-        alumno.setNombre("jaime");
-        alumno.setEmail("asdasd@asda");
-        model.addAttribute("alumno", alumno);
-        model.addAttribute("titulo","Perfil del alumno".concat(alumno.getNombre()));
-        return "perfil";
-    }
+    @Autowired
+    private AlumnoService alumnoService;
 
-    @RequestMapping("/listado")
-    public String listado(Model model){
-        List<AlumnoEntity> alumnos = new ArrayList<>();
-        model.addAttribute("titulo", "Listado de alumnos");
-        model.addAttribute("alumnos", alumnos);
 
-        return "listado";
-    }
 }

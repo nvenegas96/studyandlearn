@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -30,31 +30,124 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index">INICIO</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="clases">CLASES</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="profesionales">PROFESIONALES</a>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/index">INICIO</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/curso">CLASES</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/profesionales">PROFESIONALES</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="reserva">RESERVAR UNA HORA</a>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/reserva">RESERVAR UNA HORA</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="postular">POSTULAR A TUTOR</a>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/postular">POSTULAR A TUTOR</a>
             </ul>
         </div>
     </div>
 </nav>
 <header class="headerreserva">
 </header>
+<section class="page-section" id="contact">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Reserva</h2>
+            <h3 class="section-subheading text-muted">Completa este formulario para reservar un curso</h3>
+        </div>
+        <form th:object="${cursoARealizarEntity}" th:action="@{/guardarReservaAlumno}" method="post" onsubmit="return confirmationReserva()">
+            <div class="form-group">
+                <div>
+                    <label for="nombre">Nombres</label>
+                    <div class="form-group">
+                        <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre" required="required"
+                               data-validation-required-message="Por favor ingresa tu nombre."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <label for="apellido">Apellidos</label>
+                    <div class="form-group">
+                        <input class="form-control" id="apellido" name="apellido"  type="text" placeholder="Apellido" required="required"
+                               data-validation-required-message="Por favor ingresa tu apellido."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <label for="email">Email (Ejemplo: tucorreo@gmail.com)</label>
+                    <div class="form-group">
+                        <input class="form-control" id="email" name="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" type="email" placeholder="Correo"
+                               required="required" data-validation-required-message="Por favor ingresa tu correo."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div hidden class="form-group col-sm-6" style="max-width: 100%"> <!-- State Button -->
+                        <label>Estado</label>
+                        <select  class="form-control" name="estado" id="estado" th:field="*{estado}">
+                            <option value="Pendiente">Pendiente</option>
+                        </select>
+                    </div>
+                    <label for="telefono">Teléfono (Anteponer 9 a su numero, Ejemplo: 912345678)</label>
+                    <div class="form-group">
+                        <input class="form-control" id="telefono" pattern="[9]+[0-9]+" name="telefono" type="text" maxlength="9" minlength="8"  placeholder="Teléfono" required="required"
+                               data-validation-required-message="Por favor ingresa tu teléfono."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <label for="direccion">Dirección</label>
+                    <div class="form-group">
+                        <input class="form-control" id="direccion" name="direccion" type="text" placeholder="Dirección" required="required"
+                               data-validation-required-message="Por favor ingresa tu dirección."/>
+                        <p class="help-block text-danger"></p>
+                        <input class="form-control" id="id_docente" hidden name="id_docente" type="hidden"/>
+                    </div>
+                        <label for="area">¿En que área desea reservar?</label>
+                        <div class="form-group">
+                        <select  class="form-control" data-validation-required-message="Por favor ingresa un area." required="required"/> >
+                            <option th:each="reserva: ${listaCursos}" th:value="${reserva.id_curso}" th:text="${reserva.categoria}" ></option>
+                        </select>
+                    </div>
+                        <label>Elegir la clase que desea reservar</label>
+                        <div class="form-group">
+                        <select  class="form-control" th:field="*{cursoEntity.id_curso}"  data-validation-required-message="Por favor ingresa una clase." required="required"/>
+                            <option  th:each="reserva: ${listaCursos}" th:value="${reserva.id_curso}" th:text="${reserva.nombre}" ></option>
+                        </select>
+                    </div>
+                    <label for="modalidad">Elegir modalidad</label>
+                    <div class="form-group"> <!-- State Button -->
+                        <select  class="form-control" name="modalidad" id="modalidad" th:field="*{modalidad}" data-validation-required-message="Por favor ingresa una modalidad." required="required"/>
+                            <option value="Online">Online</option>
+                            <option value="Presencial" >Presencial</option>
+                        </select>
+                    </div>
+                    <label for="fecha">Elegir fecha de la clase</label>
+                    <div>
+                        <input type="date" id="fecha"
+                               name="horario" value="datetime-local"
+                               min="datetime-local" max="2021-06-14" th:field="*{fecha}" data-validation-required-message="Por favor ingresa una fecha." required="required"/>
+                    </div>
+                    <div>
+                        <label for="horainicio">¿A que hora desea su clase? (Entre 8:00 AM o 22:00 PM)</label>
+                        <input type="time" step="1" min="08:00:00" max="22:00:00" class="form-control" id="horainicio" th:field="*{hora_inicio}" data-validation-required-message="Por favor ingresa una hora." required="required"/>
+
+                    </div>
+                    <div>
+                        <label for="horas">¿Cuantas horas desea de clases? (Máximo 8 horas)</label>
+                        <input type="number" class="form-control" min="1" max="8" id="horas" th:field="*{cantidad_de_horas}" data-validation-required-message="Por favor ingresa la cantidad de horas." required="required"/>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <div id="success"></div>
+                <button class="btn btn-primary btn-xl text-uppercase" type="submit" >Enviar
+                    reserva
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+<hr>
 <footer class="footer py-4">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-4 text-lg-left">Copyright © Study & Learn 2020</div>
             <div class="col-lg-4 my-3 my-lg-0">
-                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-dark btn-social mx-2" ><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-dark btn-social mx-2" ><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-dark btn-social mx-2" ><i class="fab fa-instagram"></i></a>
             </div>
             <div class="col-lg-4 text-lg-right">
-                <a class="mr-3" href="nosotros">Sobre nosotros</a>
-                <a href="contactanos">Contactanos</a>
+                <a href="login">Iniciar Sesión</a>
+                <a href="nosotros">Nosotros</a>
+                <a href="contactanos">Contacto</a>
             </div>
         </div>
     </div>
