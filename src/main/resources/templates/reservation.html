@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:insert="fragments/menu.html :: menu"></div>
+<!-- Masthead-->
+<header class="headerreserva">
+</header>
+<section class="page-section" id="contact">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Reserva</h2>
+            <h3 class="section-subheading text-muted">Completa este formulario para reservar un curso</h3>
+        </div>
+        <!--
+        <th:object="${cursoARealizarEntity}" th:action="@{/guardarReservaAlumno}" method="post" onsubmit="return confirmationReserva()"
+        <form>
+            <div class="form-group">
+                <div>
+                        <label for="area">¿En que área desea reservar?</label>
+                        <div class="form-group">
+                        <select  class="form-control" data-validation-required-message="Por favor ingresa un area." required="required"/> >
+                            <option th:each="reserva: ${listaCursos}" th:value="${reserva.id_curso}" th:text="${reserva.categoria}" ></option>
+                        </select>
+                    </div>
+                        <label>Elegir la clase que desea reservar</label>
+                        <div class="form-group">
+                        <select  class="form-control" th:field="*{cursoEntity.id_curso}"  data-validation-required-message="Por favor ingresa una clase." required="required"/>
+                            <option  th:each="reserva: ${listaCursos}" th:value="${reserva.id_curso}" th:text="${reserva.nombre}" ></option>
+                        </select>
+                    </div>
+                    <label for="modalidad">Elegir modalidad</label>
+                    <div class="form-group">
+                        <select  class="form-control" name="modalidad" id="modalidad" th:field="*{modalidad}" data-validation-required-message="Por favor ingresa una modalidad." required="required"/>
+                            <option value="Online">Online</option>
+                            <option value="Presencial" >Presencial</option>
+                        </select>
+                    </div>
+                    <label for="fecha">Elegir fecha de la clase</label>
+                    <div>
+                        <input type="date" id="fecha"
+                               name="horario" value="datetime-local"
+                               min="datetime-local" max="2021-06-14" th:field="*{fecha}" data-validation-required-message="Por favor ingresa una fecha." required="required"/>
+                    </div>
+                    <div>
+                        <label for="horainicio">¿A que hora desea su clase? (Entre 8:00 AM o 22:00 PM)</label>
+                        <input type="time" step="1" min="08:00:00" max="22:00:00" class="form-control" id="horainicio" th:field="*{hora_inicio}" data-validation-required-message="Por favor ingresa una hora." required="required"/>
+
+                    </div>
+                    <div>
+                        <label for="horas">¿Cuantas horas desea de clases? (Máximo 8 horas)</label>
+                        <input type="number" class="form-control" min="1" max="8" id="horas" th:field="*{cantidad_de_horas}" data-validation-required-message="Por favor ingresa la cantidad de horas." required="required"/>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <div id="success"></div>
+                <button class="btn btn-primary btn-xl text-uppercase" type="submit" >Enviar
+                    reserva
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+-->
+<hr>
+<footer th:insert="fragments/footer.html :: footer">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

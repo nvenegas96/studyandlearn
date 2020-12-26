@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+
+<body id="page-top" class="image-fondo">
+<div class="container py-5" style="max-width: 700px">
+    <div class="alert alert-danger" th:if="${error != null}"
+         th:text="${error}"></div>
+    <div class="card border-primary">
+        <div class="card-header" th:if="${userDTO.id == null}">Crear Usuario</div>
+        <div class="card-header" th:if="${userDTO.id != null}">Editar Usuario</div>
+        <div class="card-body">
+            <form th:action="@{/users}" th:object="${userDTO}" method="POST"
+                  onsubmit="return confirmationCreateLesson()">
+
+
+                <input type="hidden" class="form-control" name="id" required th:field="*{id}"/>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" name="name" required th:field="*{name}"/>
+                </div>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>email</label>
+                    <input type="email" class="form-control" name="email" required th:field="*{email}"/>
+                </div>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Contraseña</label>
+                    <input type="text" class="form-control" name="password" required th:field="*{password}"/>
+                </div>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Dirección</label>
+                    <input type="text" class="form-control" name="address" required th:field="*{address}"/>
+                </div>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Teléfono</label>
+                    <input type="text" class="form-control" name="phone" required th:field="*{phone}"/>
+                </div>
+
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Tipo de usuario</label>
+                    <select class="form-control" name="userTypeId" th:field="*{userTypeId}" required="required"/>
+                    <option th:each="typeUser : ${typeUsers}"
+                            th:value="${typeUser.id}"
+                            th:text="${typeUser.typeTranslation}"
+                            th:selected="(${typeUser.id} == *{userTypeId})">
+
+                    </option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Nivel de estudio</label>
+                    <select class="form-control" name="studyId" th:field="*{studyLevelId}" required="required"/>
+                    <option th:each="studyLevelUser : ${studyLevelUsers}"
+                            th:value="${studyLevelUser.id}"
+                            th:text="${studyLevelUser.name}"
+                            th:selected="(${studyLevelUser.id} == *{studyLevelId})">
+                    </option>
+                    </select>
+                </div>
+
+
+                <div class="form-group col-sm-7">
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${userDTO.id == null}" value="Crear Usuario"/>
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${userDTO.id != null}" value="Editar Usuario"/>
+                    <input type="button" class="btn btn-lg btn-primary"
+                           onclick="window.location.href='/users/manageUsers'" value="Volver atrás"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+<hr>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:insert="fragments/menuAdmin.html :: menuAdmin"></div>
+<!-- Masthead-->
+<header class="headergestion">
+</header>
+<section class="contact spad">
+    <div class="text-center">
+        <h2 class="section-heading text-uppercase">Gestión de Reservas</h2>
+    </div>
+    <div class="container">
+        <button id="crearCurso" type="button" onclick="window.location.href='/lessons/actions/create'" class="btn btn-primary text-uppercase">Crear Curso</button>
+        <input type="text" id="searchTerm" onkeyup="doSearch()" placeholder="Buscar por coincidencia de caracteres"/>
+        <table id="datos"  >
+            <thead>
+            <tr>
+                <th scope="col">Nombre del curso</th>
+                <th scope="col">Nombre del alumno</th>
+                <th scope="col">Docente</th>
+                <th scope="col">Modalidad</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora de inicio</th>
+                <th scope="col">Cantidad de horas</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lessonDTO : ${lessonDTOS}">
+                <td th:text="${lessonDTO.name}"></td>
+                <td>(Nombre alumno)</td>
+                <td>(Nombre docente)</td>
+                <td th:text="${lessonDTO.modalityName}"></td>
+                <td>(Fecha del curso)</td>
+                <td>(Horario del curso)</td>
+                <td th:text="${lessonDTO.hourQuantity}"></td>
+                <td>(Estado)</td>
+                <td><a th:href="@{/lessons/actions/edit/{id}(id=${lessonDTO.id})}" th:text="'editar'"
+                       class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<hr>
+<footer th:insert="fragments/footerLogin.html :: footerLogin">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+
+<body id="page-top" class="image-fondo">
+<div class="container py-5" style="max-width: 700px">
+    <div class="alert alert-danger" th:if="${error != null}"
+         th:text="${error}"></div>
+    <div class="card border-primary">
+        <div class="card-header" th:if="${lessonScheduleDTO.id == null}">Crear Solicitud</div>
+        <div class="card-header" th:if="${lessonScheduleDTO.id != null}">Editar Solicitud</div>
+        <div class="card-body">
+            <form th:action="@{/lessonSchedule}" th:object="${lessonScheduleDTO}" method="POST"
+                  onsubmit="return confirmationCreateLesson()">
+
+
+                <input type="hidden" class="form-control" name="id" required th:field="*{id}"/>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" name="name" required th:field="*{date}"/>
+                </div>
+                <!--
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Modalidad</label>
+                    <select class="form-control" name="modalityId" th:field="*{modalityId}" required="required"/>
+                    <option th:each="modality : ${modalitys}"
+                            th:value="${modality.id}"
+                            th:text="${modality.name}"
+                            th:selected="(${modality.id} == *{modalityId})">
+
+                    </option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Categoria</label>
+                    <select class="form-control" name="categoryId" th:field="*{categoryId}" required="required"/>
+                    <option th:each="category : ${categorys}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"
+                            th:selected="(${category.id} == *{categoryId})">
+                    </option>
+                    </select>
+                </div>
+-->
+
+                <div class="form-group col-sm-7">
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${lessonScheduleDTO.id == null}" value="Crear Curso"/>
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${lessonScheduleDTO.id != null}" value="Editar Curso"/>
+                    <input type="button" class="btn btn-lg btn-primary"
+                           onclick="window.location.href='/lessonSchedule/manageSchedules'" value="Volver atrás"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+<hr>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

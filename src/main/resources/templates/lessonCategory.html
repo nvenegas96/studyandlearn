@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:insert="fragments/menu.html :: menu"></div>
+<!-- Masthead-->
+<header class="headerclases">
+</header>
+<section class="page-section bg-light" id="portfolio">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Cursos</h2>
+            <h3 class="section-subheading text-muted">Te mostramos nuestros cursos que puedes solicitar.</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-4" th:each="lessonCategory : ${listLessonCategory}">
+                <div class="portfolio-item">
+                    <a class="portfolio-link">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                       <img class="card-img-top" th:src="@{'/img/' + ${lessonCategory.image}}" alt="Generic placeholder image"
+                             width="200"
+                             height="200">
+                    </a>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading" th:text="${lessonCategory.name}"></div>
+                        <div class="portfolio-caption-subheading text-muted" th:text="${lessonCategory.description}"></div>
+                        <a th:href="@{/lessons/{id}(id=${lessonCategory.id})}" th:text="'Ver Detalles'"
+                           class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+<footer th:insert="fragments/footer.html :: footer">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

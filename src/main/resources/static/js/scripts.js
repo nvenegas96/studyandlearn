@@ -30,6 +30,7 @@
         }
     });
 
+
     // Closes responsive menu when a scroll trigger link is clicked
     $(".js-scroll-trigger").click(function () {
         $(".navbar-collapse").collapse("hide");
@@ -246,7 +247,7 @@ function confirmationEliminarDocente()
     }
 }
 
-function confirmationCrearCurso()
+function confirmationCreateLesson()
 {
     if(confirm("¿Desea continuar con la creación del curso?"))
     {
@@ -279,6 +280,10 @@ function confirmationEliminarCurso()
         return false;
     }
 }
+
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+})
 
 function countChars(obj){
     document.getElementById("charNum").innerHTML = obj.value.length+' characters';

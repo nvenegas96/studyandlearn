@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="card mt-4" th:fragment="showLessonsDetails">
+    <div class="card-header">
+        <h1 style="text-align: center">Detalles del Curso</h1>
+    </div>
+    <img class="card-img img-fluid" th:src="@{'/img/' + ${lessons.image}}" alt="">
+    <div class="card-body">
+        <h3 class="card-title"
+            th:text="${lessons.name}"></h3>
+        <p class="card-text" th:text="${lessons.description}"></p>
+        <button id="volverAtras" onclick="window.location.href='/category'"
+                class="btn btn-primary text-uppercase">Volver atrás
+        </button>
+    </div>
+</div>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:insert="fragments/menu.html :: menu"></div>
+<!-- Masthead-->
+<header class="headercontactanos">
+</header>
+<!-- Contact-->
+<section class="page-section" id="contact">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Formulario de contacto</h2>
+            <h3 class="section-subheading text-muted">Completa este formulario para poder ponerte en contacto con
+                nosotros</h3>
+        </div>
+        <form id="form1"  action="mailto:nicolas.alexisvi96@gmail.com" method="post" enctype="text/plain" onsubmit="return confirmationContacto()" >
+            <div class="row align-items-stretch mb-5">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input class="form-control" id="name" type="text" placeholder="Nombre" required="required"
+                               data-validation-required-message="Por favor ingresa tu nombre."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="email" type="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" placeholder="Correo (Ejemplo: tucorreo@gmail.com)"
+                               required="required" data-validation-required-message="Por favor ingresa tu correo."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="form-group mb-md-0">
+                        <input class="form-control" id="phone" type="text" maxlength="9" minlength="8" pattern="[9]+[0-9]+" placeholder="Teléfono (Anteponer 9 a su numero, Ejemplo: 912345678)" required="required"
+                               data-validation-required-message="Por favor ingresa tu teléfono."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-textarea mb-md-0">
+                        <textarea class="form-control" id="message" placeholder="Mensaje (Máximo 500 caracteres)" onkeyup="countChars(this);" required="required"
+                                  data-validation-required-message="Por favor ingresa tu mensaje."></textarea>
+                        <p id="charNum">0 caracteres</p>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <div id="success"></div>
+                <button class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton" type="submit">Enviar
+                    mensaje
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+<hr>
+<footer th:insert="fragments/footer.html :: footer">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

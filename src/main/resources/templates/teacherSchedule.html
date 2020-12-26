@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:insert="fragments/menuDocente.html :: menuDocente"></div>
+<!-- Masthead-->
+<header class="headergestion">
+</header>
+<form method="post" th:action="@{/teacher}">
+    <section class="contact spad" >
+        <div class="text-center"><!-- sec:authorize="isAuthenticated()"-->
+            <h1>
+                Bienvenid@ <!--<span sec:authentication="name">nombre</span>--> , en esta sección podrás confirmar que tu clase ha sido realizada con éxito.
+            </h1>
+        </div>
+        <div class="container">
+            <table class="table table-hover" id="datos">
+                <thead>
+                <tr>
+                    <th scope="col">Dia de la semana</th>
+                    <th scope="col">Fecha inicio</th>
+                    <th scope="col">Fecha fin</th>
+                    <th scope="col">Editar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="mySchedule: ${myschedule}">
+                    <!-- <form th:action="@{/cambiarEstado/{id}(id=${seccionDocente.id_clase})}" onsubmit="return confirmationCambiarEstado()">-->
+                    <td th:text="${mySchedule.id}"></td>
+                    <td th:text="${mySchedule.dayOfTheWeek}"></td>
+                    <td th:text="${mySchedule.startDate}"></td>
+                    <td th:text="${mySchedule.endDate}"></td><!--
+                <td th:text="${seccionDocente.getCursoEntity().categoria}"></td>
+                <td th:text="${seccionDocente.getAlumnoEntity().nombreAl+' '+seccionDocente.getAlumnoEntity().apellido}"></td>
+                <td th:text="${seccionDocente.modalidad}"></td>
+                <td class="text-center" th:text="${seccionDocente.fecha}"></td>
+                <td class="text-center" th:text="${seccionDocente.hora_inicio}"></td>
+                <td class="text-center" th:text="${seccionDocente.cantidad_de_horas}"></td>
+                <td class="text-center" th:text="${seccionDocente.estado}"></td>
+                <td><button type="submit" th:href="@{/cambiarEstado/{id}(id=${seccionDocente.id_clase})}" th:if="${seccionDocente.estado == 'Pendiente'}" th:text="'Cambiar estado'"
+                       class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></button>
+                    <a th:if="${seccionDocente.estado == 'Realizada'}" th:text="'Clase realizada'"
+                       class="btn btn-danger"><i class="fas fa-user-times ml-2"></i></a>
+                </td>
+                </form>-->
+                </tr>
+                <tr class='noSearch hide'>
+                    <td colspan="5"></td>
+                </tr>
+                <input type="text" id="searchTerm" onkeyup="doSearch()" placeholder="Buscar por coincidencia de caracteres"/>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</form>
+<hr>
+<footer th:insert="fragments/footerLogin.html :: footerLogin">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

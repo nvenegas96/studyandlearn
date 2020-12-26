@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:insert="fragments/menuAdmin.html :: menuAdmin"></div>
+<!-- Masthead-->
+<header class="headergestion">
+</header>
+<section class="contact spad">
+    <div class="text-center">
+        <h2 class="section-heading text-uppercase">Gestión de Solicitudes</h2>
+    </div>
+    <div class="container">
+        <button id="crearCurso" type="button" onclick="window.location.href='/lessonSchedule/actions/create'" class="btn btn-primary text-uppercase">Crear Usuario</button>
+        <input type="text" id="searchTerm" onkeyup="doSearch()" placeholder="Buscar por coincidencia de caracteres"/>
+        <table class="table table-hover" id="datos">
+            <thead>
+            <tr>
+                <th scope="col">Nombre del curso</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Nombre del alumno</th>
+                <th scope="col">Modalidad</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora de inicio</th>
+                <th scope="col">Cantidad de horas</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="manageSchedules: ${schedules}">
+                <td th:text="${manageSchedules.date}"></td>
+
+                <td><a th:href="@{/lessonSchedule/actions/edit/{id}(id=${manageSchedules.id})}" th:text="'editar'"
+                       class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+               <!-- <form th:action="@{/administrador/eliminarSolicitud/{id}(id=${visualizarSolicitudes.id_clase})}" onsubmit="return confirmationEliminarSolicitud()">
+                <td th:text="${visualizarSolicitudes.getCursoEntity().nombre}"></td>
+                <td th:text="${visualizarSolicitudes.getCursoEntity().categoria}"></td>
+                <td th:text="${visualizarSolicitudes.getAlumnoEntity().nombreAl+' '+visualizarSolicitudes.getAlumnoEntity().apellido}"></td>
+                <td th:text="${visualizarSolicitudes.modalidad}"></td>
+                <td class="text-center" th:text="${visualizarSolicitudes.fecha}"></td>
+                <td class="text-center" th:text="${visualizarSolicitudes.hora_inicio}"></td>
+                <td class="text-center" th:text="${visualizarSolicitudes.cantidad_de_horas}"></td>
+                <td><a th:href="@{/administrador/editarSolicitud/{id}(id=${visualizarSolicitudes.id_clase})}" th:text="'editar'"
+                       class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                </td>
+                <td><button type="submit" th:href="@{/administrador/eliminarSolicitud/{id}(id=${visualizarSolicitudes.id_clase})}"
+                       class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></button></td>
+                </td>
+                </form>-->
+            </tr>
+            <tr class='noSearch hide'>
+                <td colspan="5"></td>
+            </tr>
+           <!--<td><a th:href="@{/lessonSchedule/actions/edit/{id}(id=${manageSchedules.id})}" th:text="'editar'"
+                   class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>-->
+            </td>
+            </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<hr>
+<footer th:insert="fragments/footerLogin.html :: footerLogin">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>
