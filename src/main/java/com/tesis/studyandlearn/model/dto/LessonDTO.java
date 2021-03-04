@@ -17,4 +17,5 @@ public class LessonDTO {
     private Integer categoryId;
     private String modalityName;
     private String categoryName;
+    private Boolean enabled;
 }

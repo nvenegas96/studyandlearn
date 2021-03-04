@@ -12,4 +12,6 @@ import java.util.List;
 public interface UserTypeRepository extends JpaRepository<UserTypeEntity, Integer> {
 
     List<UserTypeEntity> findAll();
+
+    UserTypeEntity findById(int userTypeId);
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+
+<!-- Navigation-->
+<div th:insert="fragments/menuAdmin.html :: menuAdmin"></div>
+<!-- Masthead-->
+<header class="headergestion">
+</header>
+<section class="contact spad">
+    <h1 style="text-align: center">
+        Bienvenid@ <span sec:authentication="name">nombre</span>, en esta sección podrás crear, editar y/o listar todas
+        las reservas.
+    </h1>
+    <hr>
+    <div class="text-center">
+        <h2 class="section-heading text-uppercase">Gestión de Reservas</h2>
+    </div>
+    <div class="container">
+        <div class="alert alert-danger" th:if="${error != null}"
+             th:text="${error}"></div>
+        <div class="alert alert-success" th:if="${success != null}"
+             th:text="${success}"></div>
+        <input type="text" id="searchTerm" onkeyup="doSearch()" placeholder="Buscar por coincidencia de caracteres"/>
+        <table id="datos" >
+            <thead>
+            <tr>
+                <th scope="col" onclick="sortTable(0)" style="cursor:pointer">Nombre del curso <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col" onclick="sortTable(1)" style="cursor:pointer">Nombre del alumno <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col" onclick="sortTable(2)" style="cursor:pointer">Docente <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col" onclick="sortTable(3)" style="cursor:pointer">Modalidad <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col" onclick="sortTable(4)" style="cursor:pointer">Fecha <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col" onclick="sortTable(5)" style="cursor:pointer">Estado <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col">Cambiar estado</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lessonScheduleDTO : ${lessonScheduleDTOS}">
+                <input type="hidden" name="lessonScheduleId" th:value="${lessonScheduleDTO.id}">
+                <td th:text="${lessonScheduleDTO.lessonName}"></td>
+                <td th:text="${lessonScheduleDTO.studentName}"></td>
+                <td th:text="${lessonScheduleDTO.teacherName}"></td>
+                <td th:text="${lessonScheduleDTO.modalityName}"></td>
+                <td th:text="${lessonScheduleDTO.date}"></td>
+                <td th:text="${lessonScheduleDTO.statusName}"></td>
+                <form th:action="@{/admin/schedules/actions/changeStatus}" method="POST" onsubmit="return confirmationCambiarEstado()">
+                    <input type="hidden" name="lessonScheduleId" th:value="${lessonScheduleDTO.id}">
+                    <td>
+                        <select name="scheduleStatusId" id="scheduleStatusId">
+                            <option th:each="status : ${lessonScheduleStatus}"
+                                    th:text="${status.name}"
+                                    th:value="${status.id}"
+                                    th:selected="(${status.id} == *{lessonScheduleDTO.statusId})"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <button id="guardarCambios" type="submit" class="btn btn-primary text-uppercase">Guardar
+                        </button>
+                    </td>
+                </form>
+            </tr>
+            <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<hr>
+<footer th:insert="fragments/footerLogin.html :: footerLogin">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

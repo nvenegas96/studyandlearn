@@ -1,5 +1,6 @@
 package com.tesis.studyandlearn.repository;
 
+import com.tesis.studyandlearn.model.LessonEntity;
 import com.tesis.studyandlearn.model.LessonTeacherEntity;
 import com.tesis.studyandlearn.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,9 @@ public interface LessonTeacherRepository extends JpaRepository<LessonTeacherEnti
 
     List<LessonTeacherEntity> findAllByLessonId(int lessonId);
 
+    LessonTeacherEntity findById(int lessonTeacherId);
+
     LessonTeacherEntity findByLessonIdAndUserId(int lessonId, int teacherId);
+
+    List<LessonTeacherEntity> findAllByUserId(int userId);
 }

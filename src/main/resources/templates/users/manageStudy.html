@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+
+<body id="page-top" class="image-fondo">
+<div class="container py-5" style="max-width: 700px">
+    <div class="alert alert-danger" th:if="${error != null}"
+         th:text="${error}"></div>
+    <div class="card border-primary">
+        <div class="card-header" th:if="${studyEntity.id == null}">Crear estudio</div>
+        <div class="card-header" th:if="${studyEntity.id != null}">Editar estudio</div>
+        <div class="card-body">
+            <form  th:object="${studyEntity}" th:action="@{/admin/users/study}" method="POST"
+                   onsubmit="return confirmationCrearEstudio()">
+
+
+                <input type="hidden" class="form-control" name="id" required th:field="*{id}"/>
+                <input type="hidden" class="form-control" name="enabled" value="true"/>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Nombre del estudio</label>
+                    <input type="text" class="form-control" name="name" required th:field="*{name}"/>
+                </div>
+                <div class="form-group col-sm-7">
+                    <input type="submit" class="btn btn-sm btn-primary " th:if="${studyEntity.id == null}" value="Crear estudio"/>
+                    <input type="submit" class="btn btn-sm btn-primary " th:if="${studyEntity.id != null}" value="Editar estudio"/>
+                    <input type="button" class="btn btn-sm btn-primary"
+                           onclick="window.location.href='/admin/users/'" value="Volver atrás"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+<hr>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

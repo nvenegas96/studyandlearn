@@ -30,4 +30,7 @@ public class LessonCommentEntity {
 
     @Column(name = "comment")
     private String comment;
+
+    @Column(name = "enabled")
+    private boolean enabled;
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:insert="fragments/menuUser.html :: menuUser"></div>
+<!-- Masthead-->
+<header class="headergestion">
+</header>
+<section class="contact spad">
+    <h1 style="text-align: center">
+        Bienvenid@ <span sec:authentication="name">nombre</span>
+    </h1>
+    <hr>
+    <div class="container py-5" style="max-width: 600px">
+        <div class="alert alert-danger" th:if="${error != null}"
+             th:text="${error}"></div>
+        <div class="alert alert-success" th:if="${success != null}"
+             th:text="${success}"></div>
+        <div class="card border-primary">
+            <div class="card-header">Editar Datos</div>
+            <div class="card-body">
+                <form th:action="@{/users/profile/actions/updateProfile}" method="POST"
+                      onsubmit="return confirmationCambiarPerfil()"
+                      th:object="${userDTO}">
+
+
+                    <input type="hidden" class="form-control" name="id" th:field="*{id}">
+
+                    <div class="form-group col-sm-6" style="max-width: 100%">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" name="name" th:field="*{name}" required/>
+                    </div>
+
+                    <div class="form-group col-sm-6" style="max-width: 100%">
+                        <label>email</label>
+                        <input type="email" class="form-control" name="email" th:field="*{email}" disabled/>
+                    </div>
+
+                    <div class="form-group col-sm-6" style="max-width: 100%">
+                        <label>Contraseña</label>
+                        <input type="password" class="form-control" name="password" th:field="*{password}"/>
+                    </div>
+                    <div class="form-group col-sm-6" style="max-width: 100%">
+                        <label for="confirm_password">Confirmar Contraseña</label>
+                        <input class="form-control" name="confirm_password" id="confirm_password" type="password"
+                               placeholder="Confirmar contraseña"
+                               data-validation-required-message="Ingresa tu contraseña nuevamente."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="form-group col-sm-6" style="max-width: 100%">
+                        <label>Dirección</label>
+                        <input type="text" class="form-control" name="address" th:field="*{address}" required/>
+                    </div>
+
+                    <div class="form-group col-sm-6" style="max-width: 100%">
+                        <label>Teléfono</label>
+                        <input type="text" class="form-control" name="phone" th:field="*{phone}" required/>
+                    </div>
+                    <div class="form-group col-sm-7">
+                        <input type="submit" class="btn btn-lg btn-primary " value="Editar mi perfil"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+<footer th:insert="fragments/footerLogin.html :: footerLogin">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

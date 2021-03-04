@@ -11,8 +11,8 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Conocimiento del curso</th>
                 <th scope="col">Especialidad</th>
-                <th scope="col">Horario</th>
                 <th scope="col">Valoración</th>
+                <th scope="col">Horario/Agendar</th>
             </tr>
             </thead>
             <tbody>
@@ -20,13 +20,14 @@
                 <td th:text="${userDTO.teacher.name}"></td>
                 <td th:text="${userDTO.teacher.studyName}"></td>
                 <td th:text="${userDTO.teacher.specialtys}"></td>
+                <td th:if="${userDTO.teacher.assessment != 0}" th:text="${userDTO.teacher.assessment}+'.0'" style="text-align: center"></td>
+                <td th:if="${userDTO.teacher.assessment == 0}">Sin valoración</td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                             th:attr="data-target='#modal-'+${userDTO.teacher.id}">
                         Horario
                     </button>
                 </td>
-                <td class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</td>
             </tr>
             </tbody>
         </table>
@@ -37,7 +38,7 @@
         <div th:each="modals : ${schedulesAndTeachers}">
             <div class="modal fade" th:id="'modal-' + ${modals.teacher.id}" tabindex="-1" role="dialog"
                  aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Mi disponibilidad de horario</h5>
@@ -45,40 +46,41 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <table class="table table-hover" th:each="schedule : ${modals.scheduleDTOS}">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Dia</th>
-                                    <th scope="col">Desde</th>
-                                    <th scope="col">Hasta</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td th:text="${schedule.dayOfTheWeek.readable}"></td>
-                                    <td th:text="${schedule.startTime}"></td>
-                                    <td th:text="${schedule.endTime}"></td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-info  dropdown-toggle"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Elegir horario
-                                            </button>
-                                            <div class="dropdown-menu" th:each="hour : ${schedule.hours}">
-                                                <a class="dropdown-item"
-                                                   th:text="'De '+${hour.startHour}+' a '+${hour.endHour}"></a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Realizar reserva</button>
-                        </div>
+                        <form th:action="@{/schedules}" th:object="${reserveDTO}" method="POST">
+                            <input type="hidden" name="lessonId" th:value="${lessons.id}">
+                            <input type="hidden" name="teacherId" th:value="${modals.teacher.id}">
+                            <div class="modal-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Dia</th>
+                                        <th scope="col">Desde</th>
+                                        <th scope="col">Hasta</th>
+                                        <th scope="col">Elegir Horario</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody th:each="schedule : ${modals.scheduleDTOS}">
+                                    <tr>
+                                        <td th:text="${schedule.dayOfTheWeek.readable}"></td>
+                                        <td th:text="${schedule.startTime}"></td>
+                                        <td th:text="${schedule.endTime}"></td>
+                                        <td>
+                                            <select name="hours[]" id="schedule" th:field="*{hours}">
+                                                <option value="">Sin asignar</option>
+                                                <option th:each="hour : ${schedule.hours}"
+                                                        th:value="${hour.date} + ' ' + ${hour.startHour}"
+                                                        th:text="${hour.date} + ' de '+${hour.startHour}+' a '+${hour.endHour}"></option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Realizar reserva</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

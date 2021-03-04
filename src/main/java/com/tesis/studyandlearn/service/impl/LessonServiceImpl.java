@@ -1,9 +1,8 @@
 package com.tesis.studyandlearn.service.impl;
 
-import com.tesis.studyandlearn.model.LessonCategoryEntity;
-import com.tesis.studyandlearn.model.LessonEntity;
-import com.tesis.studyandlearn.model.LessonModalityEntity;
-import com.tesis.studyandlearn.model.LessonScheduleEntity;
+import com.tesis.studyandlearn.model.*;
+import com.tesis.studyandlearn.model.dto.ChangeLessonStatusDTO;
+import com.tesis.studyandlearn.model.dto.ChangeScheduleStatusDTO;
 import com.tesis.studyandlearn.model.dto.LessonDTO;
 import com.tesis.studyandlearn.repository.LessonCategoryRepository;
 import com.tesis.studyandlearn.repository.LessonModalityRepository;
@@ -106,6 +105,16 @@ public class LessonServiceImpl implements LessonService {
         LessonDTO lessonDTO = new LessonDTO();
         BeanUtils.copyProperties(lessonEntity, lessonDTO);
         return lessonDTO;
+    }
+
+    @Override
+    public void changeLessonStatus(ChangeLessonStatusDTO changeLessonStatusDTO) {
+        LessonEntity lessonEntity = lessonRepository.findById(changeLessonStatusDTO.getLessonId());
+        if (lessonEntity == null)
+            throw new RuntimeException("Lesson not found!.");
+
+        lessonEntity.setEnabled(false);
+        lessonRepository.saveAndFlush(lessonEntity);
     }
 
 }

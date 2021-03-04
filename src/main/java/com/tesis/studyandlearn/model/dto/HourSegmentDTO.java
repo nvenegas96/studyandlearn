@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class HourSegmentDTO {
     private String startHour;
     private String endHour;
+    private String date;
 }

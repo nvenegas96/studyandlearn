@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface LessonCategoryRepository extends JpaRepository<LessonCategoryEntity, Integer> {
 
-    List<LessonCategoryEntity> findAllByEnable(boolean isEnable);
+    List<LessonCategoryEntity> findAllByEnabled(boolean isEnabled);
 
     LessonCategoryEntity findById(int categoryId);
 

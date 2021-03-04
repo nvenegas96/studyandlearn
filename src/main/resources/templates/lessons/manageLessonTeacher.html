@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+
+<body id="page-top" class="image-fondo">
+<div class="container py-5" style="max-width: 700px">
+    <div class="alert alert-danger" th:if="${error != null}"
+         th:text="${error}"></div>
+    <div class="card border-primary">
+        <div class="card-header" th:if="${lessonTeacherDTO.id == null}">Asignar curso a docente</div>
+        <div class="card-header" th:if="${lessonTeacherDTO.id != null}">Editar Asignación</div>
+        <div class="card-body">
+            <form  th:object="${lessonTeacherDTO}" th:action="@{/admin/lessons/lessonteacher}" method="POST"
+                   onsubmit="return confirmationCrearAsignacion()">
+
+
+                <input type="hidden" class="form-control" name="id" th:field="*{id}"/>
+                <input type="hidden" name="enabled" value="true">
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Nombre del curso</label>
+                    <select class="form-control" name="lessonId" th:field="*{lessonId}" required="required"/>
+                    <option th:each="lesson : ${lessons}"
+                            th:value="${lesson.id}"
+                            th:text="${lesson.name}"
+                            th:selected="(${lesson.id} == *{lessonId})">
+                    </option>
+                    </select>
+                </div><div class="form-group col-sm-6" style="max-width: 100%">
+                <label>Nombre de los docentes</label>
+                <select class="form-control" name="userId" th:field="*{userId}" required="required"/>
+                <option th:each="user : ${users}"
+                        th:value="${user.id}"
+                        th:text="${user.name}"
+                        th:selected="(${user.id} == *{userId})"
+                        th:if="${user.userTypeId == 1}">
+                </option>
+                </select>
+            </div>
+                <div class="form-group col-sm-7">
+                    <input type="submit" class="btn btn-sm btn-primary " th:if="${lessonTeacherDTO.id == null}" value="Asignar curso a docente"/>
+                    <input type="submit" class="btn btn-sm btn-primary " th:if="${lessonTeacherDTO.id != null}" value="Editar Asignación"/>
+                    <input type="button" class="btn btn-sm btn-primary"
+                           onclick="window.location.href='/admin/lessons/'" value="Volver atrás"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+<hr>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

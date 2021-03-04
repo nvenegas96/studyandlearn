@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:insert="fragments/menuUser.html :: menuUser"></div>
+<!-- Masthead-->
+<header class="headerpostular">
+</header>
+
+<section class="page-section" id="contact">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Postulación</h2>
+            <h3 class="section-subheading text-muted">Completa este formulario para poder pertenecer a nuestro grupo de docente</h3>
+        </div>
+        <form action="mailto:nicolas.alexisvi96@gmail.com" method="post" enctype="text/plain" onsubmit="return confirmationPostulación()">
+            <div class="form-group">
+                <div>
+                    <label for="nombre">Nombre Completo (Ejemplo: Jaime Gomez Gonzales)</label>
+                    <div class="form-group">
+                        <input class="form-control" id="nombre" pattern="([a-zA-Z]{3,30}\s* )+([a-zA-Z]{3,30}\s* )+([a-zA-Z]{3,30}\s*)" type="text" placeholder="Nombre (Formato: Nombre Apellido1 Apellido2)" required="required"
+                               data-validation-required-message="Por favor ingresa tu nombre."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <label for="email">Email (Ejemplo: tucorreo@gmail.com)</label>
+                    <div class="form-group">
+                        <input class="form-control" name="email" id="email" type="email"  pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" placeholder="Correo"
+                               required="required" data-validation-required-message="Por favor ingresa tu correo."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <label for="telefono">Teléfono (Anteponer 9 a su numero, Ejemplo: 912345678)</label>
+                    <div class="form-group">
+                        <input class="form-control" name="telefono" id="telefono" maxlength="9" minlength="8" pattern="[9]+[0-9]+" type="text" placeholder="Teléfono" required="required"
+                               data-validation-required-message="Por favor ingresa tu teléfono."/>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="area">Área a postular</label>
+                        <div>
+                            <select  class="form-control" for="area" id="area" name="area" required="required" >
+                                <option id="area" th:each="postulation: ${category}" th:text="${postulation.name}"></option>
+                                <option id="area">Otra</option>
+                            </select>
+                        </div>
+                    </div>
+                    <label for="otraarea">Si no encuentra el área, ingresar aquí</label>
+                    <div class="form-group">
+                        <input class="form-control" id="otraarea" name="otraarea" type="text" placeholder="Otra área"/>
+                    </div>
+                    <label>¿Has trabajado como docente antes?</label>
+                    <div>
+                        <input type="radio" id="si" name="consultadocente" value="si"
+                               checked>
+                        <label for="si">Si</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="no" name="consultadocente" value="no">
+                        <label for="no">No</label>
+                    </div>
+                </div>
+                <div class="form-group-textarea">
+                    <label for="resumendocente">Resumen de postulación (Máximo 500 caracteres)</label>
+                    <div class="form-group form-group-textarea mb-md-0">
+                        <textarea class="form-control" id="message" onkeyup="countChars(this);" name="message" placeholder="Mensaje" maxlength="500" required="required"
+                                  data-validation-required-message="Por favor ingresa tu mensaje."></textarea>
+                        <p id="charNum">0 caracteres</p>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <div id="success"></div>
+                <button class="btn btn-primary btn-xl text-uppercase"  type="submit">Enviar
+                    postulación
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+<hr>
+<footer th:insert="fragments/footerLogin.html :: footerLogin">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

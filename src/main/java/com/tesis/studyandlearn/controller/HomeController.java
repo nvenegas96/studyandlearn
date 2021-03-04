@@ -1,44 +1,62 @@
 package com.tesis.studyandlearn.controller;
 
+import com.tesis.studyandlearn.model.UserEntity;
+import com.tesis.studyandlearn.model.dto.UserDTO;
+import com.tesis.studyandlearn.service.UserService;
+import com.tesis.studyandlearn.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @Controller
 @RequestMapping("")
 public class HomeController {
-/*
+
+    @Autowired
+    private UserService userService;
+
     @GetMapping("")
     public String indexl(Model model, Authentication authentication, HttpServletRequest request) {
 
         if (authentication != null) {
             String username = authentication.getName();
 
-            UsuarioEntity usuarioEntity = null;
+            UserEntity userEntity = null;
 
-            List<UsuarioEntity> usuarioEntities = usuarioService.findALL();
+            List<UserEntity> usuarioEntities = userService.showAllUser();
             for (int i = 0; i < usuarioEntities.size(); i++) {
-                if (usuarioEntities.get(i).getUsername().equals(username)) ;
-                usuarioEntity = usuarioEntities.get(i);
+                if (usuarioEntities.get(i).getEmail().equals(username)) ;
+                userEntity = usuarioEntities.get(i);
                 break;
             }
             SecurityContextHolderAwareRequestWrapper securityContextHolderAwareRequestWrapper = new SecurityContextHolderAwareRequestWrapper(request, "");
 
 
-            if (securityContextHolderAwareRequestWrapper.isUserInRole("ROLE_ADMIN")) {
-                CoordinadorEntity coordinadorEntity = coordinadorService.findByID(usuarioEntity.getId_usuario());
-                model.addAttribute("coordinadorEntity", coordinadorEntity);
+            if (securityContextHolderAwareRequestWrapper.isUserInRole("ADMIN")) {
+                UserDTO userEntity1 = userService.findByUserId(userEntity.getId());
+                model.addAttribute("userEntity1", userEntity1);
 
-                return "redirect:/administrador";
-            } else if (securityContextHolderAwareRequestWrapper.isUserInRole("ROLE_DOCENTE")) {
-                DocenteEntity docenteEntity = docenteService.findByID(usuarioEntity.getId_usuario());
-                model.addAttribute("docenteEntity", docenteEntity);
-                return "redirect:/seccionDocente";
+                return "redirect:/admin/lessons";
+            } else if (securityContextHolderAwareRequestWrapper.isUserInRole("TEACHER")) {
+                UserDTO userEntity1 = userService.findByUserId(userEntity.getId());
+                model.addAttribute("userEntity1", userEntity1);
+                return "redirect:/teachers/lessons";
+            } else if (securityContextHolderAwareRequestWrapper.isUserInRole("STUDENT")) {
+                UserDTO userEntity1 = userService.findByUserId(userEntity.getId());
+                model.addAttribute("userEntity1", userEntity1);
+                return "redirect:/users/lessons";
             }
         }
         return "";
-    }*/
+    }
 
     @GetMapping("/contact")
     public String contact() {
@@ -53,23 +71,10 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/reservation")
-    public String reservation() {
-        return "reservation";
-    }
-
-
     @GetMapping("/about")
     public String about() {
 
 
         return "about";
-    }
-
-    @GetMapping("/administrator")
-    public String administrator() {
-
-
-        return "administrator";
     }
 }

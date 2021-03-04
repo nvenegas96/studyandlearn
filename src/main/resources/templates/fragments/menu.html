@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <menu th:fragment="menu">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -15,11 +15,20 @@
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/index">INICIO</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/category">CLASES</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/users/teachers">PROFESIONALES</a>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/teachers">PROFESIONALES</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/reservation">RESERVAR UNA HORA</a>
+                    <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                          href="/register">REGISTRO</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/postulation">POSTULAR A TUTOR</a>
+                    <li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                          href="/login">Iniciar Sesión</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                          href="/login">MI CUENTA</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link js-scroll-trigger"
+                                                                             href="/logout">SALIR</a>
+                    </li>
                 </ul>
             </div>
         </div>

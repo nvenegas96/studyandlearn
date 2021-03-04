@@ -36,5 +36,8 @@ public class LessonEntity {
 
     @Column(name = "category_id")
     private Integer categoryId;
+
+    @Column(name = "enabled")
+    private boolean enabled;
 }
 

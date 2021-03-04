@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+
+<body id="page-top" class="image-fondo">
+<div class="container py-5" style="max-width: 700px">
+    <div class="alert alert-danger" th:if="${error != null}"
+         th:text="${error}"></div>
+    <div class="card border-primary">
+        <div class="card-header" th:if="${lessonCategoryEntity.id == null}">Crear Categoria</div>
+        <div class="card-header" th:if="${lessonCategoryEntity.id != null}">Editar Categoria</div>
+        <div class="card-body">
+            <form  th:object="${lessonCategoryEntity}" th:action="@{/admin/lessons/category}" method="POST"
+                  onsubmit="return confirmationCrearCategoria()">
+
+
+                <input type="hidden" class="form-control" name="id" required th:field="*{id}"/>
+                <input type="hidden" class="form-control" name="enabled" value="true" />
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" name="name" required th:field="*{name}"/>
+                </div>
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Descripción (Máximo 500 caracteres)</label>
+                    <textarea class="form-control" onkeyup="countChars(this);" required name="description"
+                              th:field="*{description}"></textarea>
+                    <p id="charNum">0 caracteres</p>
+                </div>
+
+                <div class="form-group col-sm-6" style="max-width: 100%"  th:if="${lessonCategoryEntity.id == null}" hidden>
+                    <label>Imagen</label>
+                    <input type="text" class="form-control" name="image" value="defecto.jpg"/>
+                </div>
+                <div class="form-group col-sm-6" style="max-width: 100%"  th:if="${lessonCategoryEntity.id != null}">
+                    <label>Imagen</label>
+                    <input type="text" class="form-control" name="image" th:field="*{image}"/>
+                </div>
+                <div class="form-group col-sm-7">
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${lessonCategoryEntity.id == null}" value="Crear Curso"/>
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${lessonCategoryEntity.id != null}" value="Editar Curso"/>
+                    <input type="button" class="btn btn-lg btn-primary"
+                           onclick="window.location.href='/admin/lessons/'" value="Volver atrás"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+<hr>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

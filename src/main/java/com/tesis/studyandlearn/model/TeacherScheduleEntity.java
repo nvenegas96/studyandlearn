@@ -35,4 +35,7 @@ public class TeacherScheduleEntity {
     @Column(name = "end_time")
     private Time endTime;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
 }

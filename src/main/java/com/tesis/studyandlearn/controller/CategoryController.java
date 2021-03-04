@@ -3,7 +3,6 @@ package com.tesis.studyandlearn.controller;
 import com.tesis.studyandlearn.model.LessonEntity;
 import com.tesis.studyandlearn.service.CategoryService;
 import com.tesis.studyandlearn.service.LessonService;
-import com.tesis.studyandlearn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +25,7 @@ public class CategoryController {
     @GetMapping("")
     public String showAllCategory(Model model) {
         model.addAttribute("listLessonCategory", categoryService.showAllCategory());
-        return "lessonCategory";
+        return "lessons/lessonCategory";
     }
 
     @GetMapping("/{categoryId}")
@@ -34,7 +33,7 @@ public class CategoryController {
         List<LessonEntity> lessonEntities = lessonService.showAllByCategory(categoryId);
         model.addAttribute("listLessons", lessonEntities);
         model.addAttribute("category", categoryService.showCategoryById(categoryId));
-        return "lessons";
+        return "lessons/lessons";
     }
 
 }

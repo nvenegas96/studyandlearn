@@ -23,4 +23,7 @@ public class LessonTeacherEntity {
 
     @Column(name = "user_id")
     private Integer userId;
+
+    @Column(name = "enabled")
+    private boolean enabled;
 }

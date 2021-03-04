@@ -14,12 +14,13 @@ public class LessonScheduleDTO {
     private Integer lessonId;
     private Integer studentId;
     private Integer teacherId;
-    private Date date;
+    private String date;
     private Integer statusId;
     private Integer assessment;
     private String lessonName;
     private String studentName;
     private String teacherName;
     private String statusName;
+    private String modalityName;
 
 }

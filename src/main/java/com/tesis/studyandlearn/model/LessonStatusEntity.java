@@ -21,4 +21,7 @@ public class LessonStatusEntity {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "enabled")
+    private boolean enabled;
 }

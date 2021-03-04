@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div class="card mt-4" th:fragment="showLessonsDetails">
     <div class="card-header">
         <h1 style="text-align: center">Detalles del Curso</h1>
@@ -9,8 +9,12 @@
         <h3 class="card-title"
             th:text="${lessons.name}"></h3>
         <p class="card-text" th:text="${lessons.description}"></p>
+        <p class="card-text" th:text="'Para solicitar este curso, debe solicitar como minimo '+${lessons.hourQuantity}+' hora(s)'"></p>
         <button id="volverAtras" onclick="window.location.href='/category'"
-                class="btn btn-primary text-uppercase">Volver atrás
+                class="btn btn-primary text-uppercase">Volver a categorias
+        </button>
+        <button id="volverAtras" sec:authorize="isAuthenticated()" onclick="window.location.href='/login'"
+                class="btn btn-primary text-uppercase">Volver a mis cursos
         </button>
     </div>
 </div>

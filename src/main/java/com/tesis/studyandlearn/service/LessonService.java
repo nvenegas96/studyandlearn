@@ -3,6 +3,7 @@ package com.tesis.studyandlearn.service;
 import com.tesis.studyandlearn.model.LessonCategoryEntity;
 import com.tesis.studyandlearn.model.LessonEntity;
 import com.tesis.studyandlearn.model.LessonScheduleEntity;
+import com.tesis.studyandlearn.model.dto.ChangeLessonStatusDTO;
 import com.tesis.studyandlearn.model.dto.LessonDTO;
 
 import java.util.List;
@@ -24,4 +25,5 @@ public interface LessonService {
 
     LessonDTO findByLessonId(int lessonId);
 
+    void changeLessonStatus(ChangeLessonStatusDTO changeLessonStatusDTO);
 }

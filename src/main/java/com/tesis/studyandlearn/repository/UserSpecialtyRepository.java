@@ -1,5 +1,6 @@
 package com.tesis.studyandlearn.repository;
 
+import com.tesis.studyandlearn.model.LessonEntity;
 import com.tesis.studyandlearn.model.UserSpecialtyEntity;
 import com.tesis.studyandlearn.model.constans.Querys;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,8 @@ public interface UserSpecialtyRepository extends JpaRepository<UserSpecialtyEnti
 
     @Query(value = Querys.specialtyNameQuery, nativeQuery = true)
     List<String> getAllSpecialtyNameByUserId(int userId);
+
+    UserSpecialtyEntity findById(int userSpecialtyId);
+
+    List<UserSpecialtyEntity> findAll();
 }

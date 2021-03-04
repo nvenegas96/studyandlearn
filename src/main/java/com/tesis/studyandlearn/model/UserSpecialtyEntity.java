@@ -22,8 +22,10 @@ public class UserSpecialtyEntity {
     @Column(name = "user_id")
     private Integer userId;
 
-
     @Column(name = "specialty_id")
     private Integer specialtyId;
+
+    @Column(name = "enabled")
+    private boolean enabled;
 
 }

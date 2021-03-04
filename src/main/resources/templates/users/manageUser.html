@@ -10,11 +10,12 @@
         <div class="card-header" th:if="${userDTO.id == null}">Crear Usuario</div>
         <div class="card-header" th:if="${userDTO.id != null}">Editar Usuario</div>
         <div class="card-body">
-            <form th:action="@{/users}" th:object="${userDTO}" method="POST"
-                  onsubmit="return confirmationCreateLesson()">
+            <form th:action="@{/admin/users/}" th:object="${userDTO}" method="POST"
+                  onsubmit="return confirmationCrearUsuario()">
 
 
                 <input type="hidden" class="form-control" name="id" required th:field="*{id}"/>
+                <input type="hidden" class="form-control" name="enabled" value="true"/>
 
                 <div class="form-group col-sm-6" style="max-width: 100%">
                     <label>Nombre</label>
@@ -70,7 +71,7 @@
                     <input type="submit" class="btn btn-lg btn-primary " th:if="${userDTO.id == null}" value="Crear Usuario"/>
                     <input type="submit" class="btn btn-lg btn-primary " th:if="${userDTO.id != null}" value="Editar Usuario"/>
                     <input type="button" class="btn btn-lg btn-primary"
-                           onclick="window.location.href='/users/manageUsers'" value="Volver atrás"/>
+                           onclick="window.location.href='/admin/users/'" value="Volver atrás"/>
                 </div>
 
             </form>

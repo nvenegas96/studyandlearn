@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div class="card card-outline-secondary my-4" th:fragment="showLessonsComments">
     <div class="card-header">
-        Comentarios
+        <h4 th:text="'Comentarios de '+${lessons.name}"></h4>
     </div>
+    <div class="card-body" th:each="comment : ${commentDTO}" th:if="${lessons.id == comment.lessonId}">
+        <p th:text="${comment.comment}"></p>
+        <small class="text-muted" th:text="'Escrito por '+${comment.userName}+' en '+${comment.date}"></small>
+        <hr>
+    </div>
+    <form th:action="@{/comments}" th:object="${lessonCommentEntity}"method="POST"
+          onsubmit="return confirmationComentar()">
     <div class="card-body">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore,
-            similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-            Sequi mollitia, necessitatibus quae sint natus.</p>
-        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+        <div class="form-group">
+            <hr>
+        <label>Comentario (Solo usuarios registrados) </label>
+        <textarea class="form-control" onkeyup="countChars(this);"
+                  name="comment"> </textarea>
+            <input type="text" class="form-control" hidden name="enabled" value="true"/>
+            <input type="text" class="form-control" hidden name="lessonId"  th:value="${lessons.id}"/>
+        <p id="charNum">0 caracteres</p>
         <hr>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore,
-            similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-            Sequi mollitia, necessitatibus quae sint natus.</p>
-        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-        <hr>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore,
-            similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-            Sequi mollitia, necessitatibus quae sint natus.</p>
-        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-        <hr>
-        <a href="#" class="btn btn-success">Dejar comentario</a>
+        <button type="submit" class="btn btn-success">Dejar comentario</button>
     </div>
+    </div>
+    </form>
 </div>
 </html>

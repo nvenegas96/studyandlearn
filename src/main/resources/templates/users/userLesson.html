@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+<body id="page-top">
+<!-- Navigation-->
+<div th:insert="fragments/menuUser.html :: menuUser"></div>
+<!-- Masthead-->
+<header class="headergestion">
+</header>
+<section class="contact spad">
+    <h1 style="text-align: center">
+        Bienvenid@ <span sec:authentication="name">nombre</span>, en está seccion podrás ver tus reservas.
+    </h1>
+    <hr>
+    <div class="text-center">
+        <h2 class="section-heading text-uppercase">Mis Reservas</h2>
+    </div>
+    <div class="container">
+        <div class="alert alert-danger" th:if="${error != null}"
+             th:text="${error}"></div>
+        <div class="alert alert-success" th:if="${success != null}"
+             th:text="${success}"></div>
+        <input type="text" id="searchTerm" onkeyup="doSearch()"
+               placeholder="Buscar por coincidencia de caracteres"/>
+        <table id="datos" class="table">
+            <thead>
+            <tr>
+                <th scope="col"  onclick="sortTable(0)" style="cursor:pointer">Nombre del curso  <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col"  onclick="sortTable(0)" style="cursor:pointer">Nombre del docente  <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col"  onclick="sortTable(0)" style="cursor:pointer">Modalidad  <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col"  onclick="sortTable(0)" style="cursor:pointer">Fecha  <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col"  onclick="sortTable(0)" style="cursor:pointer">Estado  <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col">Valorar</th>
+                <th scope="col">Cambiar estado</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lessonScheduleDTO : ${lessonScheduleDTOS}">
+                <td><a th:href="@{/lessons/{id}(id=${lessonScheduleDTO.lessonId})}"
+                       th:text="${lessonScheduleDTO.lessonName}"></a></td>
+                <td th:text="${lessonScheduleDTO.teacherName}"></td>
+                <td th:text="${lessonScheduleDTO.modalityName}"></td>
+                <td th:text="${lessonScheduleDTO.date}"></td>
+                <td th:text="${lessonScheduleDTO.statusName}"></td>
+                <form th:action="@{/users/lessons/actions/assessment}" method="POST" onsubmit="return confirmationValorar()">
+                    <td style="text-align: center" th:if="${lessonScheduleDTO.statusName == 'Finalizado' and lessonScheduleDTO.assessment == 0}">
+                        <input type="hidden" name="lessonScheduleId" th:value="${lessonScheduleDTO.id}">
+                        <p class="clasificacion" name="assessment" value="assessment">
+                            <input id="radio1" type="radio" name="assessment" value="5" required>
+                            <label for="radio1">★</label>
+                            <input id="radio2" type="radio" name="assessment" value="4" required>
+                            <label for="radio2">★</label>
+                            <input id="radio3" type="radio" name="assessment" value="3" required>
+                            <label for="radio3">★</label>
+                            <input id="radio4" type="radio" name="assessment" value="2" required>
+                            <label for="radio4">★</label>
+                            <input id="radio5" type="radio" name="assessment" value="1" required>
+                            <label for="radio5">★</label>
+                        </p>
+                        <button th:if="${lessonScheduleDTO.statusName == 'Finalizado'}"
+                                 id="guardarValoracion" type="submit" class="btn btn-primary text-uppercase">Valorar
+                        </button>
+                    </td>
+                </form>
+                <form th:action="@{/users/lessons/actions/changeStatus}" method="POST"
+                      onsubmit="return confirmationCambiarEstado()">
+                    <td th:if="${lessonScheduleDTO.statusName != 'Finalizado'}"></td>
+                    <input type="hidden" name="lessonScheduleId" th:value="${lessonScheduleDTO.id}">
+                    <td>
+                        <select name="scheduleStatusId" id="scheduleStatusId"
+                                th:if="${lessonScheduleDTO.statusName != 'Finalizado' and lessonScheduleDTO.statusName != 'Cancelado'}">
+                            <option th:each="status : ${lessonScheduleStatus}" th:if="${status.name == 'Cancelado'}"
+                                    th:text="${status.name}"
+                                    th:value="${status.id}"
+                                    th:selected="(${status.id} == *{lessonScheduleDTO.statusId})"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <button  th:if="${lessonScheduleDTO.statusName != 'Finalizado' and lessonScheduleDTO.statusName != 'Cancelado'}"
+                                id="guardarCambios" type="submit" class="btn btn-primary text-uppercase">Guardar
+                        </button>
+                    </td>
+                </form>
+            </tr>
+            <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<hr>
+<footer th:insert="fragments/footerLogin.html :: footerLogin">
+</footer>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

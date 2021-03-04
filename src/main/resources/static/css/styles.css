@@ -10213,6 +10213,18 @@ header.headerpostular {
   background-size: cover;
 }
 
+header.headerregistro {
+  padding-top: 32rem;
+  padding-bottom: 22.5rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/adm.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
 .image-fondo {
   background-image: url("../assets/img/adm.jpg");
 }
@@ -10604,6 +10616,48 @@ section#contact form#contactForm :-ms-input-placeholder {
   margin-bottom: 12px;
 }
 
+#searchTerm2 {
+  background-image: url("../assets/img/searchicon.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#searchTerm3 {
+  background-image: url("../assets/img/searchicon.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+#searchTerm4 {
+  background-image: url("../assets/img/searchicon.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+#searchTerm5 {
+  background-image: url("../assets/img/searchicon.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
 #datos {
   border-collapse: collapse;
   width: 100%;
@@ -10624,3 +10678,105 @@ section#contact form#contactForm :-ms-input-placeholder {
   background-color: #f1f1f1;
 }
 
+#datos2 {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#datos2 th, #datos2 td {
+  text-align: left;
+  padding: 12px;
+}
+
+#datos2 tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#datos2 tr.header, #datos2 tr:hover {
+  background-color: #f1f1f1;
+}
+
+#datos3 {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#datos3 th, #datos3 td {
+  text-align: left;
+  padding: 12px;
+}
+
+#datos3 tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#datos3 tr.header, #datos3 tr:hover {
+  background-color: #f1f1f1;
+}
+
+#datos4 {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#datos4 th, #datos4 td {
+  text-align: left;
+  padding: 12px;
+}
+
+#datos4 tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#datos4 tr.header, #datos4 tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+#datos5 {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#datos5 th, #datos5 td {
+  text-align: left;
+  padding: 12px;
+}
+
+#datos5 tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#datos5 tr.header, #datos5 tr:hover {
+  background-color: #f1f1f1;
+}
+
+p.clasificacion {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+p.clasificacion input {
+  position: absolute;
+  top: -100px;
+}
+
+p.clasificacion label {
+  float: right;
+  color: #333;
+}
+
+p.clasificacion label:hover,
+p.clasificacion label:hover ~ label,
+p.clasificacion input:checked ~ label {
+  color: #dd4;
+}

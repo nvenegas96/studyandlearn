@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+
+<body id="page-top" class="image-fondo">
+<div class="container py-5" style="max-width: 700px">
+    <div class="alert alert-danger" th:if="${error != null}"
+         th:text="${error}"></div>
+    <div class="card border-primary">
+        <div class="card-header" th:if="${teacherScheduleEntity.id == null}">Crear Horario</div>
+        <div class="card-header" th:if="${teacherScheduleEntity.id != null}">Editar Horario</div>
+        <div class="card-body">
+            <form th:action="@{/teachers/profile/createSchedule}" th:object="${teacherScheduleEntity}" method="POST"
+                  onsubmit="return confirmationCrearSolicitud()">
+
+
+                <input type="hidden" class="form-control" name="id" required th:field="*{id}"/>
+                <input type="hidden"  th:if="${teacherScheduleEntity.id != null}" class="form-control" name="id" required th:field="*{lessonTeacherId}"/>
+                <input type="hidden" class="form-control" name="enabled" value="true"/>
+
+                <div class="form-group col-sm-6" style="max-width: 100%" th:if="${teacherScheduleEntity.id == null}">
+                    <label>Cursos asociados</label>
+                    <select class="form-control" name="lessonTeacherId" th:field="*{lessonTeacherId}" required="required"/>
+                    <option th:each="lessonTeacherDTO : ${lessonTeacherDTOS}"
+                            th:value="${lessonTeacherDTO.id}"
+                            th:text="${lessonTeacherDTO.lessonName}"
+                            th:selected="(${lessonTeacherDTO.id} == *{lessonTeacherId})">
+                    </option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Dia de la semana</label>
+                    <select class="form-control" name="dayOfTheWeek" th:field="*{dayOfTheWeek}" required="required" th:selected="(${teacherScheduleEntity.dayOfTheWeek} == *{dayOfTheWeek})" />
+                    <option name="dayOfTheWeek" value="MONDAY">Lunes</option>
+                    <option name="dayOfTheWeek" value="TUESDAY">Martes</option>
+                    <option name="dayOfTheWeek" value="WEDNESDAY">Miercoles</option>
+                    <option name="dayOfTheWeek" value="THURSDAY">Jueves</option>
+                    <option name="dayOfTheWeek" value="FRIDAY">Viernes</option>
+                    <option name="dayOfTheWeek" value="SATURDAY">Sabado</option>
+                    <option name="dayOfTheWeek" value="SUNDAY">Domingo</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Hora de inicio</label>
+                    <input type="time" class="form-control" name="startTime" required th:field="*{startTime}"/>
+                </div>
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Hora de fin</label>
+                    <input type="time" class="form-control" name="endTime" required th:field="*{endTime}"/>
+                </div>
+                <div class="form-group col-sm-7">
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${teacherScheduleEntity.id == null}"
+                           value="Crear Reserva"/>
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${teacherScheduleEntity.id != null}"
+                           value="Editar Reserva"/>
+                    <input type="button" class="btn btn-lg btn-primary"
+                           onclick="window.location.href='/teachers/profile/'" value="Volver atrás"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+<hr>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

@@ -1,18 +1,18 @@
 package com.tesis.studyandlearn.controller;
 
-import com.tesis.studyandlearn.model.LessonEntity;
-import com.tesis.studyandlearn.model.dto.LessonDTO;
-import com.tesis.studyandlearn.model.dto.ScheduleDTO;
-import com.tesis.studyandlearn.model.dto.TeacherSchedule;
-import com.tesis.studyandlearn.model.dto.UserDTO;
-import com.tesis.studyandlearn.service.*;
+import com.tesis.studyandlearn.model.dto.ReserveDTO;
+import com.tesis.studyandlearn.service.CommentService;
+import com.tesis.studyandlearn.service.EmailService;
+import com.tesis.studyandlearn.service.LessonService;
+import com.tesis.studyandlearn.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/lessons")
@@ -23,84 +23,51 @@ public class LessonController {
     private LessonService lessonService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private ModalityService modalityService;
-
-    @Autowired
-    private TeacherScheduleService teacherScheduleService;
-
-    @Autowired
     private ScheduleService scheduleService;
 
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private CommentService commentService;
+
     @GetMapping("/{lessonId}")
-    public String showLessons(@PathVariable("lessonId") int lessonId, Model model) {
+    public String showLessons(
+            @PathVariable("lessonId") int lessonId,
+            @RequestParam(value = "error", required = false) Integer error,
+            @RequestParam(value = "success", required = false) Boolean success,
+            Model model,
+            Authentication authentication
+    ) {
+        model.addAttribute("success", successTranslation(success));
+        model.addAttribute("error", errorTranslation(error));
+        model.addAttribute("reserveDTO", new ReserveDTO());
+        model.addAttribute("commentDTO", commentService.showAllCommentDTO());;
         model.addAttribute("lessons", lessonService.showLessonById(lessonId));
         model.addAttribute("schedulesAndTeachers", scheduleService.showScheduleByLesson(lessonId));
-        return "showLessons";
+        return "lessons/showLessons";
     }
 
-
-    @GetMapping("/manageLessons")
-    public String manageLessons(Model model) {
-        model.addAttribute("lessonDTOS", lessonService.showAllLessonDTO());
-        return "manageLessons";
+    private String successTranslation(Boolean success) {
+        if (success == null || !success)
+            return null;
+        return "Reserva creada exitosamente";
     }
 
-
-    @RequestMapping(value = "/actions/create")
-    public String createLesson(Model model) {
-        return template(
-                model,
-                new LessonDTO(),
-                null
-        );
-    }
-
-
-    @GetMapping("/actions/edit/{lessonId}")
-    public String editLesson(Model model, @PathVariable("lessonId") int lessonId) {
-        return template(
-                model,
-                lessonService.findByLessonId(lessonId),
-                null
-        );
-    }
-
-    @PostMapping(path = "")
-    public String createOrUpdateLesson(@ModelAttribute LessonDTO lessonDTO, Model model) {
-        if (!lessonService.checkCorrectDTO(lessonDTO)) {
-            return template(
-                    model,
-                    lessonDTO,
-                    "Error al crear o editar un curso, revisar que todos los campos estén completos"
-            );
+    private String errorTranslation(Integer errorId) {
+        if (errorId == null)
+            return null;
+        switch (errorId) {
+            case 0:
+                return "Error";
+            case 1:
+                return "Error";
+            case 2:
+                return "Debe seleccionar alguna fecha";
+            case 3:
+                return "Debe asignar una fecha";
         }
-
-        try {
-            LessonEntity newLesson = lessonService.createOrUpdateLesson(lessonDTO);
-        } catch (Exception e) {
-            return template(
-                    model,
-                    lessonDTO,
-                    "Error al intentar crear/editar curso"
-            );
-        }
-
-        return "manageLessons";
-    }
-
-    private String template(Model model, LessonDTO lessonDTO, String message) {
-        model.addAttribute("lessonDTO", lessonDTO);
-        model.addAttribute("categorys", categoryService.showAllCategory());
-        model.addAttribute("modalitys", modalityService.showAll());
-        if (message != null)
-            model.addAttribute("error", message);
-        return "lessons/manageLesson";
+        return null;
     }
 
 

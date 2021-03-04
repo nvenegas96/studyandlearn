@@ -1,6 +1,7 @@
 package com.tesis.studyandlearn.config;
 
-import com.tesis.studyandlearn.service.UserService;
+import com.tesis.studyandlearn.model.constans.Role;
+import com.tesis.studyandlearn.service.impl.LoginServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,34 +19,33 @@ import java.util.Arrays;
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //@Autowired
-    //private UserService userDetailsService;
+    @Autowired
+    private LoginServiceImpl userDetailsService;
 
-    //@Autowired
-    //private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/css/**", "/js/**", "/img**,/assets/**").permitAll()
-                //.antMatchers("/administrador/**").hasAnyRole("ADMIN")
-                //.antMatchers("/seccionDocente/**").hasAnyRole("DOCENTE")
+                .antMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/teacher/**").hasAuthority(Role.TEACHER.name())
+                .antMatchers("/users/**").hasAuthority(Role.STUDENT.name())
+                .antMatchers(HttpMethod.POST, "/schedules").hasAnyAuthority(Role.ADMIN.name(), Role.TEACHER.name(), Role.STUDENT.name())
                 .and()
                 .formLogin().loginPage("/login")
                 .and()
-                .cors()
-                .and()
-                .csrf()
-                .disable()
-                .logout().permitAll();
+                .logout()
+                .permitAll();
     }
 
-//    @Autowired
-//    public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
-//        build.userDetailsService(userDetailsService)
-//                .passwordEncoder(passwordEncoder);
-//
-//    }
+    @Autowired
+    public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
+        build.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
+
+    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -57,6 +57,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

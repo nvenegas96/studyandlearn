@@ -14,6 +14,7 @@ public enum DayOfTheWeek {
     private String readable;
 
     DayOfTheWeek(String readable) {
+        this.readable = readable;
     }
 
     public String getReadable() {

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/header.html :: header"></head>
+
+<body id="page-top" class="image-fondo">
+<div class="container py-5" style="max-width: 700px">
+    <div class="alert alert-danger" th:if="${error != null}"
+         th:text="${error}"></div>
+    <div class="card border-primary">
+        <div class="card-header" th:if="${userSpecialtyDTO.id == null}">Asginar especialidad</div>
+        <div class="card-header" th:if="${userSpecialtyDTO.id != null}">Editar Asignación</div>
+        <div class="card-body">
+            <form  th:object="${userSpecialtyDTO}" th:action="@{/admin/users/userspecialty}" method="POST"
+                   onsubmit="return confirmationCrearEspecialidad()">
+
+
+                <input type="hidden" class="form-control" name="id" required th:field="*{id}"/>
+                <input type="hidden" class="form-control" name="enabled" value="true"/>
+
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Nombre de usuario</label>
+                    <select class="form-control" name="userId" th:field="*{userId}" required="required"/>
+                    <option th:each="user : ${users}"
+                            th:value="${user.id}"
+                            th:text="${user.name}"
+                            th:selected="(${user.id} == *{userId})">
+                    </option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6" style="max-width: 100%">
+                    <label>Nombre especialidad</label>
+                    <select class="form-control" name="userId" th:field="*{specialtyId}" required="required"/>
+                    <option th:each="specialty : ${specialtys}"
+                            th:value="${specialty.id}"
+                            th:text="${specialty.name}"
+                            th:selected="(${specialty.id} == *{specialtyId})">
+                    </option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-7">
+                    <input type="submit" class="btn btn-sm btn-primary " th:if="${userSpecialtyDTO.id == null}" value="Asginar especialidad"/>
+                    <input type="submit" class="btn btn-sm btn-primary " th:if="${userSpecialtyDTO.id != null}" value="Editar Asignación"/>
+                    <input type="button" class="btn btn-sm btn-primary"
+                           onclick="window.location.href='/admin/users/'" value="Volver atrás"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</section>
+<hr>
+<!-- Bootstrap core JS-->
+<div th:insert="fragments/jsInclude.html :: jsInclude"></div>
+</body>
+</html>

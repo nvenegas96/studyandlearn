@@ -27,7 +27,7 @@ public class LessonCategoryEntity {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "enable")
-    private boolean enable;
+    @Column(name = "enabled")
+    private boolean enabled;
 
 }

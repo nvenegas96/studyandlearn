@@ -19,7 +19,7 @@
             <div class="row align-items-stretch mb-5">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input class="form-control" id="name" type="text" placeholder="Nombre" required="required"
+                        <input class="form-control" id="name" pattern="([a-zA-Z]{3,30}\s* )+([a-zA-Z]{3,30}\s* )+([a-zA-Z]{3,30}\s*)" type="text" placeholder="Nombre (Formato: Nombre Apellido1 Apellido2)" required="required"
                                data-validation-required-message="Por favor ingresa tu nombre."/>
                         <p class="help-block text-danger"></p>
                     </div>

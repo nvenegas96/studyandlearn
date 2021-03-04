@@ -22,4 +22,5 @@ public class UserDTO {
     private String userTypeTranslation;
     private String studyName;
     private List<String> specialtys;
+    private Integer assessment;
 }

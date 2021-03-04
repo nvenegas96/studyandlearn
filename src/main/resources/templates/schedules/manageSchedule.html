@@ -7,49 +7,26 @@
     <div class="alert alert-danger" th:if="${error != null}"
          th:text="${error}"></div>
     <div class="card border-primary">
-        <div class="card-header" th:if="${lessonScheduleDTO.id == null}">Crear Solicitud</div>
-        <div class="card-header" th:if="${lessonScheduleDTO.id != null}">Editar Solicitud</div>
+        <div class="card-header" th:if="${lessonScheduleDTO.id == null}">Crear Curso</div>
+        <div class="card-header" th:if="${lessonScheduleDTO.id != null}">Editar Curso</div>
         <div class="card-body">
-            <form th:action="@{/lessonSchedule}" th:object="${lessonScheduleDTO}" method="POST"
-                  onsubmit="return confirmationCreateLesson()">
+            <form th:action="@{/admin/schedules/}" th:object="${lessonScheduleDTO}" method="POST"
+                  onsubmit="return confirmationCrearSolicitud()">
 
 
                 <input type="hidden" class="form-control" name="id" required th:field="*{id}"/>
 
                 <div class="form-group col-sm-6" style="max-width: 100%">
-                    <label>Nombre</label>
-                    <input type="text" class="form-control" name="name" required th:field="*{date}"/>
+                    <label>Fecha</label>
+                    <input type="Date" class="form-control" name="date" required th:field="*{date}"/>
                 </div>
-                <!--
-                <div class="form-group col-sm-6" style="max-width: 100%">
-                    <label>Modalidad</label>
-                    <select class="form-control" name="modalityId" th:field="*{modalityId}" required="required"/>
-                    <option th:each="modality : ${modalitys}"
-                            th:value="${modality.id}"
-                            th:text="${modality.name}"
-                            th:selected="(${modality.id} == *{modalityId})">
-
-                    </option>
-                    </select>
-                </div>
-
-                <div class="form-group col-sm-6" style="max-width: 100%">
-                    <label>Categoria</label>
-                    <select class="form-control" name="categoryId" th:field="*{categoryId}" required="required"/>
-                    <option th:each="category : ${categorys}"
-                            th:value="${category.id}"
-                            th:text="${category.name}"
-                            th:selected="(${category.id} == *{categoryId})">
-                    </option>
-                    </select>
-                </div>
--->
-
                 <div class="form-group col-sm-7">
-                    <input type="submit" class="btn btn-lg btn-primary " th:if="${lessonScheduleDTO.id == null}" value="Crear Curso"/>
-                    <input type="submit" class="btn btn-lg btn-primary " th:if="${lessonScheduleDTO.id != null}" value="Editar Curso"/>
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${lessonScheduleDTO.id == null}"
+                           value="Crear Reserva"/>
+                    <input type="submit" class="btn btn-lg btn-primary " th:if="${lessonScheduleDTO.id != null}"
+                           value="Editar Reserva"/>
                     <input type="button" class="btn btn-lg btn-primary"
-                           onclick="window.location.href='/lessonSchedule/manageSchedules'" value="Volver atrás"/>
+                           onclick="window.location.href='/admin/schedules/'" value="Volver atrás"/>
                 </div>
 
             </form>
