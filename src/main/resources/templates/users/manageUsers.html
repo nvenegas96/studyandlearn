@@ -9,40 +9,150 @@
 </header>
 <section class="contact spad">
     <h1 style="text-align: center">
-        Bienvenid@ <span sec:authentication="name">nombre</span>, en esta sección podrás crear, editar y/o listar todos los usuarios.
+        Bienvenid@ <span sec:authentication="name"></span>, en esta sección podrás crear, editar y/o listar todos los usuarios.
     </h1>
     <hr>
     <div class="text-center">
         <h2 class="section-heading text-uppercase">Gestión de Usuarios</h2>
     </div>
     <div class="container">
-        <button id="crearCurso" type="button" onclick="window.location.href='/admin/users/actions/create'" class="btn btn-primary text-uppercase">Crear Usuario</button>
+        <button id="crearUsuario" type="button" onclick="window.location.href='/admin/users/actions/create'" class="btn btn-primary text-uppercase">Crear Usuario</button>
         <input type="text" id="searchTerm" onkeyup="doSearch()" placeholder="Buscar por coincidencia de caracteres"/>
-        <table id="datos">
+        <table id="datos" class="display">
             <thead>
             <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Dirección</th>
-                <th scope="col">Teléfono</th>
-                <th scope="col">Email</th>
-                <th scope="col">Tipo de usuario</th>
-                <th scope="col">Nivel de conocimiento</th>
+                <th scope="col" onclick="sortTable(0)" style="cursor:pointer">Nombre <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col" onclick="sortTable(1)" style="cursor:pointer">Email <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col" onclick="sortTable(2)" style="cursor:pointer">Tipo de usuario <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col" onclick="sortTable(3)" style="cursor:pointer">Nivel de conocimiento <i class="fa fa-sort" style="font-size:13px;"></i></th>
                 <th scope="col">Editar</th>
-                <th scope="col">Eliminar</th>
+                <th scope="col">Deshabilitar</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="userDTO: ${userDTOS}">
+            <tr th:each="userDTO: ${userDTOS}"  th:if="${userDTO.enabled == true}">
                 <td th:text="${userDTO.name}"></td>
-                <td th:text="${userDTO.address}"></td>
-                <td th:text="${userDTO.phone}"></td>
                 <td th:text="${userDTO.email}"></td>
                 <td th:text="${userDTO.userTypeTranslation}"></td>
                 <td th:text="${userDTO.studyName}"></td>
                 <td><a th:href="@{/admin/users/actions/edit/{id}(id=${userDTO.id})}" th:text="'editar'"
                        class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                 </td>
+                <form th:action="@{/admin/users/actions/changeUserStatus}" method="POST"
+                      onsubmit="return confirmationDeshabilitar()">
+                    <input type="hidden" name="userId" th:value="${userDTO.id}">
+                    <input type="hidden" name="enabled" value="false">
+                    <td><button th:text="'deshabilitar'" type="submit"
+                                class="btn btn-danger"><i class="fas fa-user-times ml-2"></i></button></td>
+                </form>
             </tr>
+            <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<section class="contact spad">
+    <hr>
+    <div class="text-center">
+        <h2 class="section-heading text-uppercase">Asignar especialidad a usuario</h2>
+    </div>
+    <div class="container">
+        <button id="asignarEspecialidad" type="button" onclick="window.location.href='/admin/users/actions/userspecialty/create'" class="btn btn-primary text-uppercase">Asignar especialidad a usuario</button>
+        <input type="text" id="searchTerm2" onkeyup="doSearch2()" placeholder="Buscar por coincidencia de caracteres"/>
+        <table id="datos2">
+            <thead>
+            <tr>
+                <th scope="col" onclick="sortTable2(0)" style="cursor:pointer">Nombre <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col" onclick="sortTable2(1)" style="cursor:pointer">Especialidad <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col">Editar</th>
+                <th scope="col">Deshabilitar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="userSpecialtyDTO: ${userSpecialtyDTOS}" th:if="${userSpecialtyDTO.enabled == true}">
+                <td th:text="${userSpecialtyDTO.userName}"></td>
+                <td th:text="${userSpecialtyDTO.specialtyName}"></td>
+                <td><a th:href="@{/admin/users/actions/userspecialty/edit/{id}(id=${userSpecialtyDTO.id})}" th:text="'editar'"
+                       class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                <form th:action="@{/admin/users/actions/changeUserSpecialtyStatus}" method="POST"
+                      onsubmit="return confirmationDeshabilitar()">
+                    <input type="hidden" name="userSpecialtyId" th:value="${userSpecialtyDTO.id}">
+                    <input type="hidden" name="enabled" value="false">
+                    <td><button th:text="'deshabilitar'" type="submit"
+                                class="btn btn-danger"><i class="fas fa-user-times ml-2"></i></button></td>
+                </form>
+            </tr>
+            <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<section class="contact spad">
+    <hr>
+    <div class="text-center">
+        <h2 class="section-heading text-uppercase">Especialidades</h2>
+    </div>
+    <div class="container">
+        <button id="crearEspecialidad" type="button" onclick="window.location.href='/admin/users/actions/specialty/create'" class="btn btn-primary text-uppercase">Crear Especialidad</button>
+        <input type="text" id="searchTerm3" onkeyup="doSearch3()" placeholder="Buscar por coincidencia de caracteres"/>
+        <table id="datos3">
+            <thead>
+            <tr>
+                <th scope="col" onclick="sortTable3(0)" style="cursor:pointer">Especialidad <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col">Editar</th>
+                <th scope="col">Deshabilitar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="specialty: ${specialtys}" th:if="${specialty.enabled == true}">
+                <td th:text="${specialty.name}"></td>
+                <td><a th:href="@{/admin/users/actions/specialty/edit/{id}(id=${specialty.id})}" th:text="'editar'"
+                       class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                </td>
+                <form th:action="@{/admin/users/actions/changeSpecialtyStatus}" method="POST"
+                      onsubmit="return confirmationDeshabilitar()">
+                    <input type="hidden" name="specialtyId" th:value="${specialty.id}">
+                    <input type="hidden" name="enabled" value="false">
+                    <td><button th:text="'deshabilitar'" type="submit"
+                                class="btn btn-danger"><i class="fas fa-user-times ml-2"></i></button></td>
+                </form>
+            </tr>
+            <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<section class="contact spad">
+    <hr>
+    <div class="text-center">
+        <h2 class="section-heading text-uppercase">Estudios</h2>
+    </div>
+    <div class="container">
+        <button id="crearEstudio" type="button" onclick="window.location.href='/admin/users/actions/study/create'" class="btn btn-primary text-uppercase">Crear Estudio</button>
+        <input type="text" id="searchTerm4" onkeyup="doSearch4()" placeholder="Buscar por coincidencia de caracteres"/>
+        <table id="datos4">
+            <thead>
+            <tr>
+                <th scope="col" onclick="sortTable4(0)" style="cursor:pointer">Nombre del estudio <i class="fa fa-sort" style="font-size:13px;"></i></th>
+                <th scope="col">Editar</th>
+                <th scope="col">Deshabilitar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="study: ${studys}" th:if="${study.enabled == true}">
+                <td th:text="${study.name}"></td>
+                <td><a th:href="@{/admin/users/actions/study/edit/{id}(id=${study.id})}" th:text="'editar'"
+                       class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                </td>
+                <form th:action="@{/admin/users/actions/changeStudyStatus}" method="POST"
+                      onsubmit="return confirmationDeshabilitar()">
+                    <input type="hidden" name="studyId" th:value="${study.id}">
+                    <input type="hidden" name="enabled" value="false">
+                    <td><button th:text="'deshabilitar'" type="submit"
+                                class="btn btn-danger"><i class="fas fa-user-times ml-2"></i></button></td>
+                </form>
+            </tr>
+            <tr></tr>
             </tbody>
         </table>
     </div>
